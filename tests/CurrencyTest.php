@@ -122,13 +122,4 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(100, $c->getSubUnit());
     }
 
-    /**
-     * @covers \SebastianBergmann\Money\Currency::__construct
-     */
-    public function testCannotBeCreatedFromUnknownCurrencyCode()
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        new Currency(null);
-    }
 }
