@@ -45,7 +45,7 @@ class Money implements \JsonSerializable
     ];
 
     /**
-     * @param int                                      $amount
+     * @param int $amount
      * @param \SebastianBergmann\Money\Currency|string $currency
      *
      * @throws \SebastianBergmann\Money\InvalidArgumentException
@@ -56,7 +56,7 @@ class Money implements \JsonSerializable
             throw new InvalidArgumentException('$amount must be an integer');
         }
 
-        $this->amount   = $amount;
+        $this->amount = $amount;
         $this->currency = $this->handleCurrencyArgument($currency);
     }
 
@@ -70,7 +70,7 @@ class Money implements \JsonSerializable
      * number of fractional digits then the value will be rounded to the
      * currency's number of fractional digits.
      *
-     * @param string                                   $value
+     * @param string $value
      * @param \SebastianBergmann\Money\Currency|string $currency
      *
      * @return static
@@ -112,7 +112,7 @@ class Money implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'amount'   => $this->amount,
+            'amount' => $this->amount,
             'currency' => $this->currency->getCurrencyCode()
         ];
     }
@@ -208,7 +208,7 @@ class Money implements \JsonSerializable
      * of this Money object multiplied by a given factor.
      *
      * @param float $factor
-     * @param int   $roundingMode
+     * @param int $roundingMode
      *
      * @return static
      *
@@ -245,12 +245,12 @@ class Money implements \JsonSerializable
             throw new InvalidArgumentException('$n must be an integer');
         }
 
-        $sign       = ($this->amount < 0) ? -1 : 1;
-        $amount     = abs($this->amount);
-        $low        = $this->newMoney(intval($amount / $n));
-        $high       = $this->newMoney($low->getAmount() + 1);
-        $remainder  = $amount % $n;
-        $result     = [];
+        $sign = ($this->amount < 0) ? -1 : 1;
+        $amount = abs($this->amount);
+        $low = $this->newMoney(intval($amount / $n));
+        $high = $this->newMoney($low->getAmount() + 1);
+        $remainder = $amount % $n;
+        $result = [];
 
         for ($i = 0; $i < $remainder; $i++) {
             $result[] = $high->multiply($sign);
@@ -274,15 +274,15 @@ class Money implements \JsonSerializable
     public function allocateByRatios(array $ratios)
     {
         /** @var \SebastianBergmann\Money\Money[] $result */
-        $result    = [];
-        $total     = array_sum($ratios);
-        $sign      = ($this->amount < 0) ? -1 : 1;
+        $result = [];
+        $total = array_sum($ratios);
+        $sign = ($this->amount < 0) ? -1 : 1;
         $absAmount = abs($this->amount);
         $remainder = $absAmount;
 
         for ($i = 0; $i < count($ratios); $i++) {
-            $amount     = $this->castToInt($absAmount * $ratios[$i] / $total);
-            $result[]   = $this->newMoney($amount)->multiply($sign);
+            $amount = $this->castToInt($absAmount * $ratios[$i] / $total);
+            $result[] = $this->newMoney($amount)->multiply($sign);
             $remainder -= $amount;
         }
 
@@ -305,7 +305,7 @@ class Money implements \JsonSerializable
      * represented by a Money object) instead.
      *
      * @param float $percentage
-     * @param int   $roundingMode
+     * @param int $roundingMode
      *
      * @return static[]
      *
@@ -321,7 +321,7 @@ class Money implements \JsonSerializable
 
         return [
             'percentage' => $percentage,
-            'subtotal'   => $this->subtract($percentage)
+            'subtotal' => $this->subtract($percentage)
         ];
     }
 
@@ -342,9 +342,9 @@ class Money implements \JsonSerializable
     {
         $this->assertSameCurrency($this, $other);
 
-        if ($this->amount == $other->getAmount()) {
+        if ($this->amount == $other->getAmount())
             return 0;
-        }
+
 
         return $this->amount < $other->getAmount() ? -1 : 1;
     }
@@ -506,11 +506,46 @@ class Money implements \JsonSerializable
         if (!$currency instanceof Currency && !is_string($currency)) {
             throw new InvalidArgumentException('$currency must be an object of type Currency or a string');
         }
-
         if (is_string($currency)) {
             $currency = new Currency($currency);
         }
 
         return $currency;
     }
+
+    private static function handleNewCurrency($curr)
+    {
+        $curr = 8;
+
+        if ($curr < 10)
+            if ($curr > 5)
+                return "Greater than 5!";
+            else {
+                if ($curr > 5)
+                    return "Greater than 5!";
+                else {
+                    if ($curr > 5)
+                        return "Greater than 5!";
+                    else {
+                        if ($curr > 5)
+                            return "Greater than 5!";
+                        else {
+                            if ($curr > 5)
+                                return "Greater than 5!";
+                            else {
+                                if ($curr > 5)
+                                    return "Greater than 5!";
+                                else {
+                                    return "Less than 5!";
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        else
+            return "Greater than 10!";
+    }
+
 }
