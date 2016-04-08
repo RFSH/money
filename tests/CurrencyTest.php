@@ -74,7 +74,7 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanBeCastToString(Currency $c)
     {
-        $this->assertEquals('EUR', (string) $c);
+        $this->assertEquals('EUR', (string)$c);
     }
 
     /**
@@ -120,6 +120,16 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
     public function testSubUnitCanBeRetrieved(Currency $c)
     {
         $this->assertEquals(100, $c->getSubUnit());
+    }
+
+    /**
+     *  
+     * @covers \SebastianBergmann\Money\Currency::__construct 
+     */
+    public function testCannotBeCreatedFromUnknownCurrencyCode()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        new Currency(null);
     }
 
 }

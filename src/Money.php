@@ -513,39 +513,4 @@ class Money implements \JsonSerializable
         return $currency;
     }
 
-    private static function handleNewCurrency($curr)
-    {
-        $curr = 8;
-
-        if ($curr < 10)
-            if ($curr > 5)
-                return "Greater than 5!";
-            else {
-                if ($curr > 5)
-                    return "Greater than 5!";
-                else {
-                    if ($curr > 5)
-                        return "Greater than 5!";
-                    else {
-                        if ($curr > 5)
-                            return "Greater than 5!";
-                        else {
-                            if ($curr > 5)
-                                return "Greater than 5!";
-                            else {
-                                if ($curr > 5)
-                                    return "Greater than 5!";
-                                else {
-                                    return "Less than 5!";
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-        else
-            return "Greater than 10!";
-    }
-
 }
